@@ -1,3 +1,0 @@
- -Xms64m -Xmx512m
-RobotClient_09
-RobotClient_09.jar,core.jar,net.jar

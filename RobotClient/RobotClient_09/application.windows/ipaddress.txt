@@ -1,7 +1,0 @@
-192.168.0.4
-10.2.40.157
-//only the first line in this file matters
-
-127.0.0.1   //loopback
-10.2.40.184 //work IP
-192.168.0.4 //home IP
