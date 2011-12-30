@@ -1,3 +1,0 @@
- -Xms64m -Xmx512m
-RobotServer_06
-RobotServer_06.jar,core.jar,serial.jar,RXTXcomm.jar,Arduino.jar,net.jar
