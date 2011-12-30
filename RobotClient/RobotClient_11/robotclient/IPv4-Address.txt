@@ -1,0 +1,6 @@
+5.153.174.166
+//only the first line in this file matters
+
+127.0.0.1   //loopback
+10.2.40.184 //work IP
+192.168.0.7 //home IP

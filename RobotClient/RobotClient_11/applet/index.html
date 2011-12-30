@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <!-- charset must remain utf-8 to be handled properly by Processing -->
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <title>RobotClient_11 : Built with Processing</title>
+
+    <style type="text/css">
+      /* <![CDATA[ */
+	
+	body {
+  	  margin: 60px 0px 0px 55px;
+	  font-family: verdana, geneva, arial, helvetica, sans-serif; 
+	  font-size: 11px; 
+	  background-color: #ddddcc; 
+	  text-decoration: none; 
+	  font-weight: normal; 
+	  line-height: normal; 
+	}
+		 
+	a          { color: #3399cc; }
+	a:link     { color: #3399cc; text-decoration: underline; }
+	a:visited  { color: #3399cc; text-decoration: underline; }
+	a:active   { color: #3399cc; text-decoration: underline; }
+	a:hover    { color: #3399cc; text-decoration: underline; }
+
+      /* ]]> */
+    </style>    
+  </head>
+
+  <body>
+    <div id="content">
+      <div id="RobotClient_11_container">
+
+	<!-- This version plays nicer with older browsers, 
+	     but requires JavaScript to be enabled. 
+	     http://java.sun.com/javase/6/docs/technotes/guides/jweb/deployment_advice.html -->
+	<script type="text/javascript"
+		src="http://www.java.com/js/deployJava.js"></script>
+	<script type="text/javascript">
+	  /* <![CDATA[ */
+
+	  var attributes = { 
+            code: 'RobotClient_11.class',
+            archive: 'RobotClient_11.jar,net.jar,core.jar',
+            width: 100, 
+            height: 100,
+            image: 'loading.gif'
+          };
+          var parameters = { };
+          var version = '1.5';
+          deployJava.runApplet(attributes, parameters, version);
+
+          /* ]]> */
+        </script>
+        
+	<noscript> <div>
+	  <!--[if !IE]> -->
+	  <object classid="java:RobotClient_11.class" 
+            	  type="application/x-java-applet"
+            	  archive="RobotClient_11.jar,net.jar,core.jar"
+            	  width="100" height="100"
+            	  standby="Loading Processing software..." >
+            
+	    <param name="archive" value="RobotClient_11.jar,net.jar,core.jar" />
+	    
+	    <param name="mayscript" value="true" />
+	    <param name="scriptable" value="true" />
+	    
+	    <param name="image" value="loading.gif" />
+	    <param name="boxmessage" value="Loading Processing software..." />
+	    <param name="boxbgcolor" value="#FFFFFF" />
+	    
+	    <param name="test_string" value="outer" />
+	  <!--<![endif]-->
+
+	    <!-- For more instructions on deployment, 
+		 or to update the CAB file listed here, see:
+		 http://java.sun.com/javase/6/webnotes/family-clsid.html
+		 http://java.sun.com/javase/6/webnotes/install/jre/autodownload.html -->
+	    <object classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+		    codebase="http://java.sun.com/update/1.6.0/jinstall-6u20-windows-i586.cab"
+		    width="100" height="100"
+		    standby="Loading Processing software..."  >
+	      
+	      <param name="code" value="RobotClient_11" />
+	      <param name="archive" value="RobotClient_11.jar,net.jar,core.jar" />
+	      
+	      <param name="mayscript" value="true" />
+	      <param name="scriptable" value="true" />
+	      
+	      <param name="image" value="loading.gif" />
+	      <param name="boxmessage" value="Loading Processing software..." />
+	      <param name="boxbgcolor" value="#FFFFFF" />
+	      
+	      <param name="test_string" value="inner" />
+	      
+	      <p>
+		<strong>
+		  This browser does not have a Java Plug-in.
+		  <br />
+		  <a href="http://www.java.com/getjava" title="Download Java Plug-in">
+		    Get the latest Java Plug-in here.
+		  </a>
+		</strong>
+	      </p>
+	      
+	    </object>
+	    
+	  <!--[if !IE]> -->
+	  </object>
+	  <!--<![endif]-->
+
+	</div> </noscript>
+
+      </div>
+      
+      <p>
+	
+
+robot client*******************************
+
+
+adapted from...*********************************************
+ Shared Drawing Canvas (Client) 
+ by Alexander R. Galloway. 
+/
+/*
+added AWSD letters
+version 09 has green boxes on keystrokes
+/
+
+import processing.net.*;
+String the_server_ip;
+int the_port = 1234;
+PFont fontA;
+char letter;
+
+Client c;
+String input;
+int data[];
+
+
+
+//drawing stuff
+int window_height = 200;    //this must be the same as on the server
+int window_width = window_height;    //
+int s_height = window_height / 10;     // diameter of the circle
+int max = window_height;//  Maximum Y value                           *
+int min = 0;          // Minimum Y value                              *
+boolean over = false;  // If mouse over                               *
+boolean move = false;  // If mouse down and over                      *
+// Spring simulation constants                                        *
+float M = 0.1;   // Mass                                              *
+float K = 0.8;   // Spring constant                                   *
+float D = 0.09;  // Damping                                           *
+float R = (window_height / 2);//  Rest position                       *
+// Y Spring simulation variables                                      *
+float ps = window_height / 2; // Y Position                           *
+float vs = 0.0;  // Velocity                                          *
+float as = 0;    // Acceleration                                      *
+float f = 0;     // Force                                             *
+// X Spring simulation variables                                      *
+float px = window_width / 2; // X Position                            *
+float vx = 0.0;  // Velocity                                          *
+float ax = 0;    // Acceleration                                      *
+float fx = 0;     // Force   *
+//keyboard stuff
+boolean a_key_was_pressed = false;
+char the_key;
+
+void setup() 
+{
+  size(window_width, window_height);
+  background(204);
+  stroke(0);
+  frameRate(5); // Slow it down a little
+  rectMode(CORNERS);
+  
+  String[] lines;
+  lines = loadStrings("IPv4-Address.txt");
+  the_server_ip = lines[0];//get the IP address from a file     
+  // Connect to the server's IP address and port
+  c = new Client(this, the_server_ip, the_port); // Replace with your server's IP and port
+  
+  fontA = loadFont("Algerian-36.vlw");
+  textAlign(CENTER);
+  textFont(fontA, 32);
+}
+
+void draw() 
+{
+  background(102);
+  stroke(255);
+  draw_background_lines();
+  if (mousePressed == true) 
+  {
+    // Draw our line
+    stroke(255);
+    line(pmouseX, pmouseY, mouseX, mouseY);
+    // Send mouse coords to other person
+    //c.write(pmouseX + " " + pmouseY + " " + mouseX + " " + mouseY + "\n");
+  }
+  /*// Receive data from server
+  if (c.available() > 0) {
+    input = c.readString();
+    input = input.substring(0, input.indexOf("\n")); // Only up to the newline
+    data = int(split(input, ' ')); // Split values into an array
+    px = data[0]; // X Position
+    ps = data[1]; // Y Position
+    // Draw box using received coords
+    stroke(0);
+    rect(int(px), int(ps), int(px) + s_height, ps + s_height);//draw the box ***
+  }
+
+      </p>
+      
+      <p>
+	Source code: <a href="RobotClient_11.pde">RobotClient_11</a> 
+      </p>
+      
+      <p>
+	Built with <a href="http://processing.org" title="Processing.org">Processing</a>
+      </p>
+    </div>
+  </body>
+</html>
