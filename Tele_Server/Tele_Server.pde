@@ -1,3 +1,5 @@
+
+
 /***************************************************************
  ****************************************************************
  *****************  Telerobot                ********************
@@ -79,7 +81,7 @@ void setup()
   size(window_width, window_height);
   background(204);
   stroke(0);
-  frameRate(10); // Slow it down a little
+  frameRate(5); // Slow it down a little
   s = new Server(this, the_port); // Start a simple server on a port
   //springiness stuff
   rectMode(CORNERS);
