@@ -269,10 +269,10 @@ void do_draw()
           arduino.pinMode(Right_Forward_Pin, Arduino.HIGH);
           arduino.digitalWrite(Left_Reverse_Pin, Arduino.HIGH);
           arduino.digitalWrite(Right_Forward_Pin, Arduino.HIGH);
-          delay(250);
+          delay(100);
           arduino.digitalWrite(Left_Reverse_Pin, Arduino.LOW);
           arduino.digitalWrite(Right_Forward_Pin, Arduino.LOW);
-          delay(250);         
+          delay(100);         
         }
       }
       //println("case D = " + motors_x);
@@ -318,10 +318,10 @@ void do_draw()
           arduino.pinMode(Right_Reverse_Pin, Arduino.HIGH);          
           arduino.digitalWrite(Left_Forward_Pin, Arduino.HIGH);
           arduino.digitalWrite(Right_Reverse_Pin, Arduino.HIGH);
-          delay(250);
+          delay(100);
           arduino.digitalWrite(Left_Forward_Pin, Arduino.HIGH);
           arduino.digitalWrite(Right_Reverse_Pin, Arduino.HIGH); 
-          delay(250);         
+          delay(100);         
         }
       }
       //println("case F = " + motors_x);
