@@ -4,7 +4,9 @@
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
                                   |
+                                  |
   +-------------------------------+
+  |
   |
   Download, Install, and Set-Up software:
      |
@@ -16,6 +18,7 @@
      |     and edit the file, "IPv4-Address.txt" - changing the first line to the computer name or IP address of the robot server machine. 
      |     Use the default value (127.0.0.1) for local testing of client and server on one machine.
      |     Run Tele_Client.exe
+     |
      |
      |
      +-*OR* use The full source:
