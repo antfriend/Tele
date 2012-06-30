@@ -1,0 +1,3 @@
+ -Xms64m -Xmx512m
+Tele_Client
+Tele_Client.jar,core.jar,net.jar
