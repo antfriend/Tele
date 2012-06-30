@@ -1,3 +1,28 @@
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////    Telepresence Robot   ///////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+                                  |
+  +-------------------------------+
+  |
+  Download, Install, and Set-Up software:
+     |
+     +-Just the Compiled executables:
+     |   |
+     |   +-Client files: 
+     |
+     |
+     +-(or get) The full source:
+        |
+        +-Set Up Processing Arduino Firmatta library:
+        |   http://www.arduino.cc/playground/Interfacing/Processing
+        |
+        |
+        |
+        |
+        |
 
 
-<a href="http://www.arduino.cc/playground/Interfacing/Processing">Set Up Processing Arduino Firmatta library</a>
+
+
