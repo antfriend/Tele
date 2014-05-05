@@ -1,0 +1,185 @@
+AGENT: ******************************************************************************************************
+
+// Log the URLs we need
+server.log("Turn LED On: " + http.agenturl() + "?led=1");
+server.log("Turn LED Off: " + http.agenturl() + "?led=0");
+ 
+function requestHandler(request, response) {
+  try {
+    // check if the user sent led as a query parameter
+    local m_value = "";
+    local a_value = "";
+    if ("a" in request.query) 
+    {
+      a_value = request.query.a;
+      server.log("a="+a_value+"\n");
+    }
+    else
+    {
+      a_value = "-1";
+    }
+    if ("m" in request.query) {
+      m_value = request.query.m;
+      server.log("m="+m_value+"\n");
+      //local theData = http.urlencode({ m=m_value, a=a_value });
+      device.send("mode", m_value.tointeger());
+      
+      // if they did, and led=1.. set our variable to 1
+      //if (request.query.led == "1" || request.query.led == "0") {
+        // convert the led query parameter to an integer
+        //local ledState = request.query.led.tointeger();
+ 
+        // send "led" message to device, and send ledState as the data
+        //device.send("mode", ledState); 
+      //}
+    }
+    //server.log("this was sent: " + request.query);
+    //foreach(val in request.query)
+    //{
+       //server.log("name="+val.id+" ");
+      // server.log("value="+val+"\n");
+    //}
+    
+    
+    // send a response back saying everything was OK.
+    local lineStart = "<html> " + m_value + "<br>"+a_value+"<br><div align='center'>tele<br/>";
+    local line0 = "<a style='font-size:600%;' href='https://agent.electricimp.com/5QTIMHzZMioX/?m=1&a=1'>forward</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";    
+    local line1 = "<a style='font-size:600%;' href='https://agent.electricimp.com/5QTIMHzZMioX/?m=3&a=1'>left</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";    
+    local line2 = "<a style='font-size:600%;' href='https://agent.electricimp.com/5QTIMHzZMioX/?m=0&a=-1'>stop</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+    local line3 = "<a style='font-size:600%;' href='https://agent.electricimp.com/5QTIMHzZMioX/?m=4&a=1'>right</a><br>";
+    local line4 = "<a style='font-size:600%;' href='https://agent.electricimp.com/5QTIMHzZMioX/?m=2&a=1'>backward</a><br>";
+    local lastLine = "</div></html>";
+    local allLines = lineStart+line0+line1+line2+line3+line4+lastLine;
+    response.send(200, allLines);
+    
+  } catch (ex) {
+    response.send(500, "Internal Server Error: " + ex);
+  }
+}
+ 
+// register the HTTP handler
+http.onrequest(requestHandler);
+
+device.onconnect(function() {
+  server.log("device now online");
+});
+
+
+DEVICE:******************************************************************************************************
+imp.configure("tele1", [], []);
+// configure the imp (best practice)
+ 
+// create global variables
+e_pin <- hardware.pin9;
+pin_1 <- hardware.pin1;
+pin_2 <- hardware.pin2;
+pin_5 <- hardware.pin5;
+pin_7 <- hardware.pin7;
+
+function stop()
+{
+    e_pin.write(1);//disabled
+    pin_1.write(1);
+    pin_2.write(1);
+    pin_5.write(1);
+    pin_7.write(1);    
+}
+
+function forward()
+{
+    e_pin.write(0);//enabled
+    pin_1.write(0);
+    pin_2.write(1);
+    pin_5.write(0);
+    pin_7.write(1);
+}
+
+function reverse()
+{
+    e_pin.write(0);//enabled
+    pin_1.write(1);
+    pin_2.write(0);
+    pin_5.write(1);
+    pin_7.write(0);
+}
+
+function right()
+{
+    e_pin.write(0);//enabled
+    pin_1.write(1);
+    pin_2.write(0);
+    pin_5.write(0);
+    pin_7.write(1);
+}
+
+function left()
+{
+    e_pin.write(0);//enabled
+    pin_1.write(0);
+    pin_2.write(1);
+    pin_5.write(1);
+    pin_7.write(0);
+}
+
+
+function setMode(thedata) {
+  server.log("Set Mode: " + thedata);
+        //foreach (val in thedata)
+        //{
+        //    //output point B
+        //    server.log(typeof val);
+        //    server.log(val.tostring());
+        //    
+            //Point Q
+           // server.log(val.len());
+        //}
+  //local data = thedata;
+  //server.log("data : " + data);
+  local themode = thedata;
+  //server.log("Set Amount: " + theamount);
+  //e_pin.write(ledState);
+  //pin_1.write(theDirection);
+  if(themode==0)
+  {
+    stop();
+  }
+  if(themode==1)
+  {
+    forward();
+  }
+  if(themode==2)
+  {
+    reverse();
+  }
+  if(themode==3)
+  {
+    right()
+  }
+  if(themode==4)
+  {
+    left();
+  }
+}
+
+function configureInit()
+{
+  // configure led to be a digital output
+  e_pin.configure(DIGITAL_OUT);
+  pin_1.configure(DIGITAL_OUT);
+  pin_1.write(1);//off
+  pin_2.configure(DIGITAL_OUT);
+  pin_2.write(1);//off
+  pin_5.configure(DIGITAL_OUT);
+  pin_5.write(1);//off
+  pin_7.configure(DIGITAL_OUT);
+  pin_7.write(1);//off
+  e_pin.write(0);//enabled
+  server.log("pins configured");
+}
+
+configureInit();
+server.log("amount added version");
+server.log(" ... ");
+// register a handler for messages from the agent
+agent.on("mode", setMode);
+
