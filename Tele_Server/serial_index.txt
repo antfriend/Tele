@@ -1,4 +1,4 @@
 3
 //the first line is the only one read.
-//the number is the index number of the arduino on this computer
-//a non-existant serial port index # will cause an error
+//the number is the index number of the arduino port on this computer
+//a non-existant port index # will cause an error
